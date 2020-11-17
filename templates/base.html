@@ -1,0 +1,168 @@
+{% load static %}<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Rol EXEMPLO.{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'css/datepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select2.min.css' %}">
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/datepicker.min.js' %}"></script>
+    <script src="{% static 'js/select2.min.js' %}"></script>
+    {% block script %}{% endblock %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.png' %}"/>
+
+
+
+    {% block stylesheet %}{% endblock %}
+  </head>
+  {% if user.is_authenticated %}
+  <body>
+    <div id="loading"><img id="ldng" src="{% static 'img/ldng.gif' %}"/></div>
+    {% block body %}
+    <!-- O MENU FICA AQUI -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand loadme" href="{% url 'home' %}" style="color: #ccff99;">Rol EXEMPLO.</a> 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          
+          <!-- Informações (algumas são pra qualquer pessoa) -->
+          <li class="nav-item">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="boletimMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Informações
+                </a>
+                <div class="dropdown-menu" aria-labelledby="boletimMenu">
+                  <a class="dropdown-item loadme" href="{% url 'aniversarios' %}">Aniversários</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'rol_publico' 'membros' %}">Rol de Membros</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'relatorios' %}">Relatórios</a>
+                  {% if perms.rol.add_pessoa %}
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'grupos' %}">Grupos</a>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-divider"></div>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'debug' %}">debug</a>
+                  {% endif %}
+                </div>
+                
+              </li>
+            </ul>
+          </li>
+          <!-- fim informacoes -->
+
+          <!--begin so pra oficiais-->
+          {% if perms.rol.add_pessoa %}
+          <li class="nav-item active">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pessoasMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Pessoas
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pessoasMenu">
+                  <a class="dropdown-item loadme" href="{% url 'pessoas_membros' %}">Membros, Pastores e Admitendos</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'pessoas_visitantes' %}">Visitantes</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'pessoas_outros' %}">Outros</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'pessoas' %}">Todas as Pessoas</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'lista_rol' %}">Rol de Membros (com matrícula)</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'new_pessoa' %}">Cadastrar</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item active">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="pessoasMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Diaconia
+                </a>
+                <div class="dropdown-menu" aria-labelledby="pessoasMenu">
+                  <a class="dropdown-item loadme" href="{% url 'frequencia' %}">Frequência</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'talentos' %}">Banco de Talentos</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'carros' %}">Carros</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          {% endif %}
+          <!--end so pra oficiais-->
+
+          <!--begin so pra PRESBITEROS-->
+          {% if perms.rol.add_ata %}
+          <li class="nav-item">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="conselhoMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Conselho
+                </a>
+                <div class="dropdown-menu" aria-labelledby="conselhoMenu">
+                  <a class="dropdown-item loadme" href="{% url 'atas' %}">Atas de Reunião</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'new_ata' %}">Cadastrar Ata de Reunião</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'admitir' %}">Admitir Novo Membro</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'demitir' %}">Demitir Membro</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'presbiterio' %}">Relatório para Presbitério</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item loadme" href="{% url 'igrejas' %}">Igrejas</a>
+                </div>
+              </li>
+            </ul>
+          </li>
+          {% endif %}
+          <!--end so pra PRESBITEROS-->
+
+
+        
+        </ul>
+
+        <!-- usuario -->
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Usuário: {{ user.username }}
+            </a>
+            <div class="dropdown-menu dropdown" aria-labelledby="userMenu">
+              <a class="dropdown-item loadme" href="{% url 'password_change' %}">Trocar Senha</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item loadme" href="{% url 'logout' %}">Sair</a>
+            </div>
+          </li>
+        </ul>
+        <!-- fim usuario -->
+
+      </div>
+    </nav>
+    <div class="container">
+      <ol class="breadcrumb">
+        {% block breadcrumb %}
+        {% endblock %}
+      </ol>
+      {% block content %}
+      {% endblock %}
+    </div>
+  {% endblock body %}
+  </body>
+  {% endif %}
+</html>

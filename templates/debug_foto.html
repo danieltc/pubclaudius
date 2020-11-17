@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'debug' %}">DEBUG</a></li>
+<li class="breadcrumb-item active">FOTOS</li>
+{% endblock %}
+
+{% block content %}
+    
+<hr/>
+    <h3>Membros sem foto: ({{contagem_membros_sem_foto}} de {{contagem_membros}})</h3>
+    <ul>
+        {% for m in membros_sem_foto %}
+        <li><a class="loadme" href="{% url 'pessoa' m.pessoa.pk %}">{{m}}</a></li>
+        {% endfor %}
+    </ul>
+<hr/>
+    
+{% endblock %}

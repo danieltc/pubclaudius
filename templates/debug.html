@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">DEBUG</li>
+{% endblock %}
+
+{% block content %}
+
+<ul>
+	<li><a class="loadme" href="{% url 'debug_foto' %}">Membros sem foto</a></li>
+	<li><a class="loadme" href="{% url 'debug_basicos' %}">Membros sem dados básicos</a></li>
+	<li><a class="loadme" href="{% url 'debug_geral' %}">Outras informações</a></li>
+	<li><a class="loadme" href="/api">API REST</a></li>
+</ul>
+
+{% endblock %}

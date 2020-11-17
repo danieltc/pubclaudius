@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Admitir Pessoa como Membro {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'home' %}">Ações do Conselho</a></li>
+<li class="breadcrumb-item active">Admitir Novo Membro</li>
+{% endblock %}
+
+{% block content %}
+  <form autocomplete="off" method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-dark">Admitir Membro</button>
+  </form>
+{% endblock %}

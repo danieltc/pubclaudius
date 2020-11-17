@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Relatório para Presbitério</li>
+{% endblock %}
+
+{% block content %}
+<form autocomplete="off" method="post" enctype="multipart/form-data" >
+{% csrf_token %}
+{% include 'includes/form.html' %}
+
+<button type="submit" class="loadme btn btn-dark">Atualizar</button>
+</form>
+{% if solicitado %}
+<div class="dropdown-divider"></div>
+<h3>Relatório de {{data_inicio}} até {{data_fim}}:</h3>
+
+<hr>
+
+<h4>Admissões de membros comungantes</h4>
+<ul>
+    <li>Feminino = {{admissoes_comungante_f}}</li>
+    <li>Masculino = {{admissoes_comungante_m}}</li>
+    <li>Total = {{admissoes_comungante_t}}</li>
+</ul>
+<h4>Admissões de membros não-comungantes</h4>
+<ul>
+    <li>Feminino = {{admissoes_nao_comungante_f}}</li>
+    <li>Masculino = {{admissoes_nao_comungante_m}}</li>
+    <li>Total = {{admissoes_nao_comungante_t}}</li>
+</ul>
+<h5>Admissões - Total: {{admissoes_total}}</h5>
+<hr>
+<h4>Demissões de membros comungantes</h4>
+<ul>
+    <li>Feminino = {{demissoes_comungante_f}}</li>
+    <li>Masculino = {{demissoes_comungante_m}}</li>
+    <li>Total = {{demissoes_comungante_t}}</li>
+</ul>
+<h4>Demissões de membros não-comungantes</h4>
+<ul>
+    <li>Feminino = {{demissoes_nao_comungante_f}}</li>
+    <li>Masculino = {{demissoes_nao_comungante_m}}</li>
+    <li>Total = {{demissoes_nao_comungante_t}}</li>
+</ul>
+<h5>Demissões - Total: {{demissoes_total}}</h5>
+<hr>
+
+<table class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th width="50%">COMUNGANTES</th>
+      <th width="50%">NÃO-COMUNGANTES</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td >
+          <table class="table table-bordered table-responsive table-sm">
+            <thead class="bg-secondary">
+              <tr>
+                <th width="70%">ADMISSÃO</th>
+                <th>Feminino</th>
+                <th>Masculino</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Profissão de Fé</td> <td>{{acf_profissao_fe}}</td> <td>{{acm_profissao_fe}}</td> <td>{{act_profissao_fe}}</td>
+              </tr>
+              <tr>
+                <td>Profissão de Fé e Batismo</td> <td>{{acf_profissao_fe_batismo}}</td> <td>{{acm_profissao_fe_batismo}}</td> <td>{{act_profissao_fe_batismo}}</td>
+              </tr>
+              <tr>
+                <td>Transferência</td> <td>{{acf_transferencia}}</td> <td>{{acm_transferencia}}</td> <td>{{act_transferencia}}</td>
+              </tr>
+              <tr>
+                <td>Jurisdição</td> <td>{{acf_jurisdicao}}</td> <td>{{acm_jurisdicao}}</td> <td>{{act_jurisdicao}}</td>
+              </tr>
+              <tr>
+                <td>Restauração</td> <td>{{acf_restauracao}}</td> <td>{{acm_restauracao}}</td> <td>{{act_restauracao}}</td>
+              </tr>
+              <tr>
+                <td>Designação do Presbitério</td> <td>{{acf_designacao}}</td> <td>{{acm_designacao}}</td> <td>{{act_designacao}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered table-responsive table-sm">
+            <thead class="bg-secondary">
+              <tr>
+                <th width="70%">ADMISSÃO - N.C.</th>
+                <th>Feminino</th>
+                <th>Masculino</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Batismo</td> <td>{{ancf_batismo}}</td> <td>{{ancm_batismo}}</td> <td>{{anct_batismo}}</td>
+              </tr>
+              <tr>
+                <td>Transferência</td> <td>{{ancf_transferencia}}</td> <td>{{ancm_transferencia}}</td> <td>{{anct_transferencia}}</td>
+              </tr>
+              <tr>
+                <td>Jurisdição ex-officio</td> <td>{{ancf_jurisdicao}}</td> <td>{{ancm_jurisdicao}}</td> <td>{{anct_jurisdicao}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered table-responsive table-sm">
+            <thead class="bg-secondary">
+              <tr>
+                <th width="70%">DEMISSÃO</th>
+                <th>Feminino</th>
+                <th>Masculino</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Transferência</td> <td>{{dcf_transferencia}}</td> <td>{{dcm_transferencia}}</td> <td>{{dct_transferencia}}</td>
+              </tr>
+              <tr>
+                <td>Falecimento</td> <td>{{dcf_falecimento}}</td> <td>{{dcm_falecimento}}</td> <td>{{dct_falecimento}}</td>
+              </tr>
+              <tr>
+                <td>Exclusão</td> <td>{{dcf_exclusao}}</td> <td>{{dcm_exclusao}}</td> <td>{{dct_exclusao}}</td>
+              </tr>
+              <tr>
+                <td>Ordenação</td> <td> - </td> <td>{{dcm_ordenacao}}</td> <td>{{dcm_ordenacao}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+        <td>
+          <table class="table table-bordered table-responsive table-sm">
+            <thead class="bg-secondary">
+              <tr>
+                <th width="70%">DEMISSÃO - N.C.</th>
+                <th>Feminino</th>
+                <th>Masculino</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Profissão de Fé</td> <td>{{dncf_profissao_fe}}</td> <td>{{dncm_profissao_fe}}</td> <td>{{dnct_profissao_fe}}</td>
+              </tr>
+              <tr>
+                <td>Transferência</td> <td>{{dncf_transferencia}}</td> <td>{{dncm_transferencia}}</td> <td>{{dnct_transferencia}}</td>
+              </tr>
+              <tr>
+                <td>Falecimento</td> <td>{{dncf_falecimento}}</td> <td>{{dncm_falecimento}}</td> <td>{{dnct_falecimento}}</td>
+              </tr>
+              <tr>
+                <td>Exclusão</td> <td>{{dncf_exclusao}}</td> <td>{{dncm_exclusao}}</td> <td>{{dnct_exclusao}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <table class="table table-bordered table-responsive table-sm">
+              <thead class="bg-secondary"><tr>
+                  <th width="70%">COMUNGANTES</th>
+                  <th>Feminino</th>
+                  <th>Masculino</th>
+                  <th>Total</th>
+              </tr></thead>
+              <tbody>
+                <tr><td>?ROL SEPARADO</td> <td>{{gcf_rol_separado}}</td> <td>{{gcm_rol_separado}}</td> <td>{{gct_rol_separado}}</td> </tr>
+                <tr><td>Admissão - Demissão:</td> <td>{{gcf_admissao_menos_demissao}}</td> <td>{{gcm_admissao_menos_demissao}}</td> <td>{{gct_admissao_menos_demissao}}</td> </tr>
+                <tr><td>?Ano Anterior:</td> <td>{{gcf_comungantes_menos_ano_anterior}}</td> <td>{{gcm_comungantes_menos_ano_anterior}}</td> <td>{{gct_comungantes_menos_ano_anterior}}</td> </tr>
+                <tr><td>?Ano Atual:</td> <td>{{gcf_comungantes_menos_ano_atual}}</td> <td>{{gcm_comungantes_menos_ano_atual}}</td> <td>{{gct_comungantes_menos_ano_atual}}</td> </tr>
+              </tbody>
+            </table>
+        </td>
+        <td>
+          <table class="table table-bordered table-responsive table-sm">
+              <thead class="bg-secondary"><tr>
+                  <th width="70%">NÃO COMUNGANTES</th>
+                  <th>Feminino</th>
+                  <th>Masculino</th>
+                  <th>Total</th>
+              </tr></thead>
+              <tbody>
+                <tr><td>?ROL SEPARADO</td> <td>{{gncf_rol_separado}}</td> <td>{{gncm_rol_separado}}</td> <td>{{gnct_rol_separado}}</td> </tr>
+                <tr><td>Admissão - Demissão:</td> <td>{{gncf_admissao_menos_demissao}}</td> <td>{{gncm_admissao_menos_demissao}}</td> <td>{{gnct_admissao_menos_demissao}}</td> </tr>
+                <tr><td>?Ano Anterior:</td> <td>{{gncf_comungantes_menos_ano_anterior}}</td> <td>{{gncm_comungantes_menos_ano_anterior}}</td> <td>{{gnct_comungantes_menos_ano_anterior}}</td> </tr>
+                <tr><td>?Ano Atual:</td> <td>{{gncf_comungantes_menos_ano_atual}}</td> <td>{{gncm_comungantes_menos_ano_atual}}</td> <td>{{gnct_comungantes_menos_ano_atual}}</td> </tr>
+              </tbody>
+            </table>
+        </td>
+      </tr>
+  </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

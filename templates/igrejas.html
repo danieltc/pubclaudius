@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">Igrejas</li>
+<li class="breadcrumb-item"><a href="{% url 'new_igreja' %}">(+)</a></li>
+
+{% endblock %}
+
+
+{% block content %}
+<div>
+    <form>
+        <input type="text" class="form-control" id="search-input" placeholder="Buscar..." autocomplete="off">
+    </form>
+</div>
+
+<table id="table-pessoas" class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Nome</th>
+      <th>Cidade</th>
+      <th>IPB</th>
+      <th> Classe </th>
+      </tr>
+  </thead>
+  <tbody>
+    {% for i in igrejas %}
+      <tr>
+        <td><a class="loadme" href="{% url 'edit_igreja' i.pk %}">{{ i.nome }}</a> <span style="font-size: 0;" > {{i.nome}} </span></td>
+        <td>{{ i.cidade }}</td>
+        <td>{% if i.ipb %} Sim {% else %} Não {% endif %}</td>
+     <td>{{ i.classe }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

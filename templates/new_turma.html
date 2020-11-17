@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Nova Turma {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupos' %}">Grupos</a></li>
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupo' grupo.pk %}">{{grupo.nome}}</a></li>
+<li class="breadcrumb-item active">Novo Item sob <b>"{{grupo.nome}}"</b></li>
+
+{% endblock %}
+
+{% block content %}
+{% if grupo.pk is not 12 or perms.rol.add_ata %}
+  <form autocomplete="off" method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-dark">Cadastrar</button>
+  </form>
+
+{% else %}
+	<h1>Grupo restrito.</h1>
+{% endif %}
+{% endblock %}

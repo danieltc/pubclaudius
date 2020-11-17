@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Frequências</li>
+{% endblock %}
+
+{% block content %}
+<ul>
+	<li><a class="loadme" href="{% url 'freq_culto' 'matutino' %}">Culto Matutino</a></li>
+	<li><a class="loadme" href="{% url 'freq_culto' 'noturno' %}">Culto Noturno</a></li>
+	<li><a class="loadme" href="{% url 'freq_ebd' %}">Escola Bíblica Dominical</a></li>
+	<li><a class="loadme" href="{% url 'freq_turma' '8' %}">EBD Infantil - Juvenis</a></li>
+	<li><a class="loadme" href="{% url 'freq_turma' '7' %}">EBD Infantil - Jardim</a></li>
+	<li><a class="loadme" href="{% url 'freq_turma' '6' %}">EBD Infantil - Berçário</a></li>
+	
+	
+</ul>
+{% endblock %}

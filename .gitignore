@@ -1,0 +1,6 @@
+rol/migrations/__pycache__/*
+rol/__pycache__/*
+claudius/__pycache__/*
+*.pyo
+*.pyc
+*.pdf

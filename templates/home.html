@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block script %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart','bar','line']});
+      google.charts.setOnLoadCallback(drawChartComparativoCultosAnual);
+      google.charts.setOnLoadCallback(drawChartCultos);
+      google.charts.setOnLoadCallback(drawChartEbd);
+      google.charts.setOnLoadCallback(drawChartEbdi);
+      google.charts.setOnLoadCallback(drawChartMembresia);
+      function drawChartComparativoCultosAnual() {
+        var data = google.visualization.arrayToDataTable([
+          ['Dia', 'Matutino', 'Noturno','EBD',],
+          {% for f in freq_anual %}
+          ['{{f.dia}}', {{f.matutino}}, {{f.noturno}}, {{f.ebds}}],
+          {% endfor %}
+        ]);
+        var options = {
+          title: 'Comparativo de Frequência (anual)',
+          colors: ['#56b55e', '#225126','#e0440e'],
+          vAxis: {
+            viewWindow: {
+              min: 50,
+            },
+          },
+          pointSize: 3,
+          dataOpacity: 0.3
+
+          
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('comparativo_cultos_anual'));
+        chart.draw(data, options);
+        
+      }
+
+      function drawChartCultos() {
+        var data = google.visualization.arrayToDataTable([
+          ['Dia', 'Matutino', 'Noturno',],
+          {% for f in freq %}
+          ['{{f.dia}}', {{f.matutino}}, {{f.noturno}}],
+          {% endfor %}
+        ]);
+        var options = {
+          chart: {
+            title: 'Frequência aos Cultos',
+          },
+          colors: ['#56b55e', '#225126']
+        };
+        var chart = new google.charts.Bar(document.getElementById('freq_cultos'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
+      function drawChartEbd() {
+        var data = google.visualization.arrayToDataTable([
+          ['Dia', {% for t in turmas %} '{{t.titulo}}', {% endfor %}],
+          {% for d in domingos %}
+          ['{{d.data}}', {% for f in d.frequencias %} {{f.quantidade}}, {% endfor %} ],
+          {% endfor %}
+        ]);
+        var options = {
+          chart: {
+            title: 'Frequência na EBD',
+          },
+        };
+        var chart = new google.charts.Bar(document.getElementById('freq_ebd'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
+
+      function drawChartEbdi() {
+        var data = google.visualization.arrayToDataTable([
+          ['Dia', {% for t in turmas_i %} '{{t.titulo}}', {% endfor %}],
+          {% for d in domingos_i %}
+          ['{{d.data}}', {% for f in d.frequencias %} {{f.quantidade}}, {% endfor %} ],
+          {% endfor %}
+        ]);
+        var options = {
+          chart: {
+            title: 'Frequência na EBD Infantil',
+          },
+          colors: ['#e0440e', '#e6693e', '#ec8f6e'],
+        };
+        var chart = new google.charts.Bar(document.getElementById('freq_ebdi'));
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
+
+
+function drawChartMembresia() {
+        var data = google.visualization.arrayToDataTable([
+          ['Dia', 'Membros'],
+          {% for p in progresso_membresia %}
+          ['{{p.data_formatada}}', {{p.membresia_total}}, ],
+          {% endfor %}
+        ]);
+        var options = {
+          title: 'Membresia',
+          colors: ['#56b55e'],
+          pointSize: 2,
+          dataOpacity: 0.3,
+        };
+        var chart = new google.visualization.AreaChart(document.getElementById('membresia'));
+        chart.draw(data, options);
+      }
+
+
+    </script>
+{%endblock%}
+<main role="main" class="container">
+<div class="jumbotron">
+{% block content %}
+
+ <div id="comparativo_cultos_anual" style=" width: 100%; min-height: 450px;"></div>
+ <div id="freq_cultos" style=" width: 100%; min-height: 450px;"></div>
+<div class="dropdown-divider"></div>
+ <div id="freq_ebd" style=" width: 100%; min-height: 450px;"></div>
+ <div id="freq_ebdi" style=" width: 100%; min-height: 450px;"></div>
+ <div id="membresia" style=" width: 100%; min-height: 450px;"></div>
+ <br>
+ Pastores:<br>
+ {% for p in pastores %}
+ {% if perms.rol.add_pessoa %}<a class="loadme" href="{% url 'pessoa' p.pessoa.pk %}">{% endif %} {{p.pessoa}} {% if perms.rol.add_pessoa %}</a>{% endif %}- ( {% if p.data_inicio_mandato is not None %}desde {{p.data_inicio_mandato}} {% endif %} {% if p.data_fim_mandato is not None %}até {{p.data_fim_mandato}} {% endif %})<br>
+ {% endfor %}
+ <br>
+ Presbíteros:<br>
+ {% for p in presbiteros %}
+ {% if perms.rol.add_pessoa %}<a class="loadme" href="{% url 'pessoa' p.pessoa.pk %}">{% endif %} {{p.pessoa}} {% if perms.rol.add_pessoa %}</a>{% endif %}- ( {% if p.data_inicio_mandato is not None %}desde {{p.data_inicio_mandato}} {% endif %} {% if p.data_fim_mandato is not None %}até {{p.data_fim_mandato}} {% endif %})<br>
+ {% endfor %}
+ <br>
+ Diáconos:<br>
+ {% for p in diaconos %}
+ {% if perms.rol.add_pessoa %}<a class="loadme" href="{% url 'pessoa' p.pessoa.pk %}">{% endif %} {{p.pessoa}} {% if perms.rol.add_pessoa %}</a>{% endif %}- ( {% if p.data_inicio_mandato is not None %}desde {{p.data_inicio_mandato}} {% endif %} {% if p.data_fim_mandato is not None %}até {{p.data_fim_mandato}} {% endif %})<br>
+ {% endfor %}
+
+{% endblock %}
+</div>
+</main>
+
+
+
+

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Ato Oficial {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'atas' %}">Atas de Reuniões do Conselho</a></li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'ata' pk=ata.id %}">{{ata}}</a></li>
+<li class="breadcrumb-item active">Registrar novo Ato Oficial</li>
+{% endblock %}
+
+{% block content %}
+  <form autocomplete="off" method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-dark">Cadastrar</button>
+  </form>
+{% endblock %}

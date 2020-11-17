@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Pessoa{% endblock %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a class="loadme" href="{% url 'home' %}">Pessoas</a></li>
+  <li class="breadcrumb-item"><a class="loadme" href="{% url 'pessoa' pessoa.pk %}">{{pessoa.nome}}</a></li>
+  <li class="breadcrumb-item active">editar</li>
+{% endblock %}
+
+{% block content %}
+  <form autocomplete="off" method="post" enctype="multipart/form-data">
+  	<button type="submit" class="loadme btn btn-dark">Salvar</button>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="loadme btn btn-dark">Salvar</button>
+  </form>
+{% endblock %}

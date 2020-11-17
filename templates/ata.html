@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'atas' %}">Atas de Reuniões do Conselho</a></li>
+<li class="breadcrumb-item active">{{ata}}</li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'new_ato' ata.pk %}">Registrar Ato Oficial</a></li>
+{% endblock %}
+
+{% block content %}
+<table class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Ato</th>
+      <th>Matrícula</th>
+      <th>Nome</th>
+      <th>Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in atos %}
+      <tr>
+        <td ><a class="loadme" href="{% url 'ato' a.pk %}">{{ a.tipo_ato }}</a> 
+        <td >{{ a.matricula }}</td>
+        <td >{{ a.pessoa }}</td>
+        <td >{{ a.data }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

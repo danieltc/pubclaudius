@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'frequencia' %}">Frequências</a></li>
+<li class="breadcrumb-item active">Culto Dominical {{turno}}</li>
+{% endblock %}
+
+{% block content %}
+<form autocomplete="off" method="post" enctype="multipart/form-data" >
+{% csrf_token %}
+{% include 'includes/form.html' %}
+<button type="submit" class="loadme btn btn-dark">Registrar Frequência</button>
+</form>
+<div class="dropdown-divider"></div>
+<table class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Dia</th>
+      <th>Culto</th>
+      <th>Berçário</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for f in freq %}
+      <tr>
+        <td >{{ f.data }}</td>
+        <td >{{ f.culto }}</td>
+        <td >{{ f.bercario }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

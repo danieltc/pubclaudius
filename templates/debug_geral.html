@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'debug' %}">DEBUG</a></li>
+<li class="breadcrumb-item active">GERAL</li>
+{% endblock %}
+
+{% block content %}
+    <h3>Matrículas disponíveis (anteriores a {{maior_matricula}}):</h3>
+    <ul>
+        {% for m in matriculas_disponiveis %}
+        <li>{{m}}</li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Pessoas que são listadas como Membros (mas não são):</h3>
+    <ul>
+        {% for m in pessoas_nao_membros %}
+        <li><a class="loadme" href="{% url 'pessoa' m.pk %}">{{m}}</a></li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Membros sem ato oficial de admissão:</h3>
+    <ul>
+        {% for m in membros_sem_ato %}
+        <li><a class="loadme" href="{% url 'pessoa' m.pk %}">{{m}}</a></li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Membros sem data de admissão:</h3>
+    <ul>
+        {% for m in membros_sem_data %}
+        <li><a class="loadme" href="{% url 'pessoa' m.pk %}">{{m}}</a></li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Membros com Ato Oficial de admissão duplicado:</h3>
+    <ul>
+        {% for m in membros_admissao_duplicado %}
+        <li><a class="loadme" href="{% url 'pessoa' m.pk %}">{{m}}</a> - {% for a in m.admissoes %} {{a.ata_ato}};  {% endfor %} </li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Membros sem categoria 'Membro':</h3>
+    <ul>
+        {% for m in membros_sem_categoria %}
+        <li><a class="loadme" href="{% url 'pessoa' m.pk %}">{{m}}</a> (categoria: {{m.categoria}})</li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Atos oficiais de admissão sem registro na tabela de membros:</h3>
+    <ul>
+        {% for a in admissao_sem_membro %}
+        <li><a class="loadme" href="{% url 'ato' a.pk %}">{{a.tipo_ato}} - {{a.pessoa}}</a></li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Pessoas com Categoria 'Membro' sem registro na tabela de membros:</h3>
+    <ul>
+        {% for p in pessoas_categoria_membro %}
+        <li><a class="loadme" href="{% url 'pessoa' p.pk %}">{{p}}</a> (categoria: {{p.categoria}})</li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Pessoas com registro <u>VÁLIDO</u> duplicado no rol de membros:</h3>
+    <ul>
+        {% for p in duplo_valido %}
+        <li><a class="loadme" href="{% url 'pessoa' p.pk %}">{{p}}</a></li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Pessoas com registro duplicado no rol de membros (incluindo "inválidos"):</h3>
+    <ul>
+        {% for p in pessoas_duplicadas_no_rol %}
+        <li><a class="loadme" href="{% url 'pessoa' p.pk %}">{{p}}</a></li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Ex-membros com ato oficial de demissão duplicado:</h3>
+    <ul>
+        {% for p in exmembros_demissao_duplicado %}
+        <li><a class="loadme" href="{% url 'pessoa' p.pk %}">{{p}}</a> - {% for a in p.demissoes %} {{a.ata_ato}};  {% endfor %} </li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Ex-membros sem ato oficial de demissão:</h3>
+    <ul>
+        {% for p in exmembros_sem_ato %}
+        <li><a class="loadme" href="{% url 'pessoa' p.pk %}">{{p}}</a> </li>
+        {% endfor %}
+    </ul>
+<hr/>
+    <h3>Ex-membros com categoria errada:</h3>
+    <ul>
+        {% for p in exmembros_sem_categoria %}
+        <li><a class="loadme" href="{% url 'pessoa' p.pk %}">{{p}}</a> (categoria: {{p.categoria}})</li>
+        {% endfor %}
+    </ul>
+<hr/>
+{% endblock %}

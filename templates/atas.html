@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Atas de Reuniões do Conselho</a></li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'new_ata' %}">Registrar Nova Ata de Reunião</a></li>
+{% endblock %}
+
+
+{% block content %}
+<table class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Ata</th>
+      <th>Data</th>
+      <th>Atos</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for a in atas %}
+      <tr>
+        <td><a class="loadme" href="{% url 'ata' a.pk %}">{{ a.identificacao }}</a></td>
+        <td>{{ a.data }}</td>
+        <td>{{ a.atos }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'debug' %}">DEBUG</a></li>
+<li class="breadcrumb-item active">DADOS BÁSICOS</li>
+{% endblock %}
+
+{% block content %}
+<hr/>
+    <h3>Membros com dados básicos faltando: ({{contagem_membros_sem_dados}} de {{contagem_membros}})</h3>
+    <ul>
+        {% for m in sem_dados_basicos %}
+        <li><a class="loadme" href="{% url 'pessoa' m.pessoa.pk %}">{{m}}</a> - {{m.pessoa.dados_faltantes}}</li>
+        {% endfor %}
+    </ul>
+<hr/>
+
+
+{% endblock %}

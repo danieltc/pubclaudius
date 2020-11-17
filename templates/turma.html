@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+{% if turma.tipo_grupo.pk is not 12 or perms.rol.add_ata %}
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupos' %}">Grupos</a></li>
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupo' turma.tipo_grupo.pk %}">{{turma.tipo_grupo.nome}}</a></li>
+<li class="breadcrumb-item active">{{turma.titulo}}</li>
+<li class="breadcrumb-item"><a href="{% url 'relatorio_turma' turma.pk %}">PDF</a></li>
+{% if turma.tipo_grupo.pk is not 9 %}
+<li class="breadcrumb-item"><a href="{% url 'edit_turma' turma.pk %}">editar</a></li>
+{% endif %}
+{% endif %}
+{% endblock %}
+
+
+
+{% block content %}
+{% if not turma.restrito or perms.rol.add_ata %}
+<p>LIDERANÇA: <a class="loadme" href="{% url 'selecionar_lider' turma.pk %}">(adicionar)</a></p></p>
+<ul>
+	{% for lider in lideranca %}
+		<li><a class="loadme" href="{% url 'pessoa' lider.pk %}">{{lider}}</a> <a class="loadme" href="{% url 'del_lider_turma' turma.pk lider.pk %}">(remover)</a></li>
+	{% endfor %}
+</ul>
+<hr>
+<p>PARTICIPANTES: <a class="loadme" href="{% url 'selecionar_participante' turma.pk %}">(adicionar)</a></p>
+<ul>
+    {% for participante in participantes %}
+        <li><a class="loadme" href="{% url 'pessoa' participante.pk %}">{{participante}}</a> <a class="loadme" href="{% url 'del_pessoa_turma' turma.pk participante.pk %}">(remover)</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+	<h1>Grupo restrito.</h1>
+{% endif %}
+{% endblock %}

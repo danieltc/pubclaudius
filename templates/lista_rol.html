@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'home' %}">Rol de Membros</a></li>
+<li class="breadcrumb-item">Lista Completa</li>
+{% endblock %}
+
+
+{% block content %}
+<div>
+    <form>
+        <input type="text" class="form-control" id="search-input" placeholder="Buscar..." autocomplete="off">
+    </form>
+</div>
+
+<table id="table-pessoas" class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Matrícula</th>
+      <th>Nome</th>
+      <th>Categoria</th>
+      <th>Ata Admissão</th>
+      <th>Data Admissão</th>
+      <th>Forma Admissão</th>
+      <th>Ata Demissão</th>
+      <th>Data Demissão</th>
+      <th>Forma Demissão</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in pessoas %}
+      <tr>
+        <td>{{ p.matricula }}</td>
+        <td class="nome-pessoa"><a class="loadme" href="{% url 'pessoa' p.pessoa.id %}">{{ p.pessoa.nome }}</a> <span style="font-size: 0;" > {{p.pessoa.nome_ascii}} </span></td>
+        <td class="categoria-pessoa">{{ p.pessoa.categoria }}</td>
+        <td>{{p.ata_admissao}}</td>
+        <td>{{p.data_admissao}}</td>
+        <td>{{p.forma_admissao}}</td>
+        <td>{{p.ata_demissao}}</td>
+        <td>{{p.data_demissao}}</td>
+        <td>{{p.forma_demissao}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

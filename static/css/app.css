@@ -1,0 +1,71 @@
+.foto_membro{
+    display: block;
+    height: auto;
+    width: auto;
+    max-width: 200px;
+}
+
+.foto_membro_small{
+    display: block;
+    height: auto;
+    width: auto;
+    max-height: 50px;
+}
+
+a{
+	font-weight: bold;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+/* mouse over link */
+a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+/* selected link */
+a:active {
+    color: green;
+ 	text-decoration: underline;
+}
+
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+  background-color: #f2ffe6;
+  font-family: "Roboto", sans-serif;
+}
+
+.cinza {
+    background-color: #dddddd;
+}
+
+#loading {
+    display: block;
+    position: absolute;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(192, 192, 192, 0.5);
+}
+
+#ldng {
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    top: 30%;
+}

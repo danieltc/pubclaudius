@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Demitir Membro {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'home' %}">Ações do Conselho</a></li>
+<li class="breadcrumb-item active">Demitir Membro</li>
+{% endblock %}
+
+{% block content %}
+  <form autocomplete="off" method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-dark">Demitir</button>
+  </form>
+{% endblock %}

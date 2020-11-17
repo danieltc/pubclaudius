@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'atas' %}">Atas de Reuniões do Conselho</a></li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'ata' pk=ato.ata_ato_id %}">{{ato.ata_ato}}</a></li>
+<li class="breadcrumb-item active">{{ato}}</li>
+{% endblock %}
+
+{% block content %}
+<p>data: {{ato.data}}</p>
+<p>pessoa: <a class="loadme" href="{% url 'pessoa' ato.pessoa.id %}">{{ato.pessoa.nome}}</a></p>
+<p>dados: {{ato.dados_ato}}</p>
+<p>tipo: {{ato.tipo_ato}}</p>
+<p>celebrante: {{ato.celebrante}}</p>
+<p>detalhes: {{ato.detalhes}}</p>
+{% endblock %}

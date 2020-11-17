@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Cadastrar Talentos {% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'talentos' %}">Banco de Talentos</a></li>
+<li class="breadcrumb-item active">Cadastrar Talentos</li>
+{% endblock %}
+
+{% block content %}
+  <form autocomplete="off" method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    <button type="submit" class="btn btn-dark">Cadastrar</button>
+  </form>
+{% endblock %}

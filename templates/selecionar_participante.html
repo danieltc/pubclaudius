@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupos' %}">Grupos</a></li>
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupo' turma.tipo_grupo.pk %}">{{turma.tipo_grupo.nome}}</a></li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'turma' turma.pk %}">{{turma.titulo}}</a></li>
+<li class="breadcrumb-item active">Selecionar Participante</li>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+<div>
+    <form>
+        <input type="text" class="form-control" id="search-input" placeholder="Buscar..." autocomplete="off">
+    </form>
+</div>
+
+<table id="table-pessoas" class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Foto</th>
+      <th>Nome</th>
+      <th>Categoria</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in pessoas %}
+      <tr>
+        <td>{% if p.foto %}<a class="loadme" href="{{p.foto.url}}">{% endif %}<img class='foto_membro_small' class="figure-img img-fluid rounded" src="{% if p.foto %}{{p.foto.url}}{% else %}{% static 'img' %}/0.jpg{% endif %}"'>{% if p.foto %}</a>{% endif %}</td>
+        <td>
+          {% if perms.rol.add_pessoa %}<a class="loadme" href="{% url 'add_pessoa_turma' turma.pk p.pk %}">{% endif %}
+          {{p.nome}}
+          {% if perms.rol.add_pessoa %}</a>{% endif %}
+          <span style="font-size: 0;" > {{p.nome_ascii}} </span></td>
+        <td>{{p.categoria}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

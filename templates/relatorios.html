@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'home' %}">Informações</a></li>
+<li class="breadcrumb-item active">Relatórios</li>
+{% if perms.rol.add_pessoa %}
+<li class="breadcrumb-item active"><a class="loadme" href="{% url 'new_relatorio' %}">(+)</a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<table id="table-totais" class="table table-bordered table-responsive">
+
+  <tbody>
+      {% if perms.rol.add_pessoa %}
+      <tr class="cinza">
+        <td><a class="loadme" href="{% url 'rol_publico' 'sem_foto'%}">Pessoas Sem Foto</a></td>
+        <td><b>{{sem_foto}}</b></td>
+      </tr>
+      <tr class="cinza">
+        <td><a class="loadme" href="{% url 'rol_publico' 'viuvas'%}"><b>Viúvas</b></a></td>
+        <td><b>{{viuvas}}</b></td>
+      </tr>
+      <tr class="cinza">
+        <td><a class="loadme" href="{% url 'rol_publico' 'casas'%}"><b>Casas</b></a></td>
+        <td><b>{{casas}}</b></td>
+      </tr>
+      <tr class="cinza">
+        <td><a class="loadme" href="{% url 'rol_publico' 'congregacao_marajo'%}"><b>Congregação Marajó</b></a></td>
+        <td><b>{{congregacao_marajo}}</b></td>
+      </tr>
+      <tr class="cinza">
+        <td><a class="loadme" href="{% url 'rol_publico' 'lideres'%}"><b>Líderes e Professores</b></a></td>
+        <td><b>{{lideres}}</b></td>
+      </tr>
+      <tr class="cinza">
+        <td><a class="loadme" href="{% url 'rol_publico' 'participantes'%}"><b>Participam de Grupos de Serviço</b></a></td>
+        <td><b>{{participantes}}</b></td>
+      </tr>
+      <tr class="cinza">
+        <td><a class="loadme" href="{% url 'rol_publico' 'disponiveis'%}"><b>Não Participam de Grupos de Serviço</b></a></td>
+        <td><b>{{disponiveis}}</b></td>
+      </tr>
+      {% for rp in relatorios_personalizados %}
+      <tr style="background-color: #baf7a6;">
+        <td><a class="loadme" href="{% url 'relatorio_personalizado' rp.id%}"><b>{{rp.titulo}}</b></a></td>
+        <td><b>{{rp.total}}</b></td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' %}"><b>Todos</b></a></td>
+        <td><b>{{total}}</b></td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'membros'%}"><b>Membros</b></a></td>
+        <td><b>{{membros}}</b></td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'membros_comungantes' %}"><b>Membros Comungantes</b></a></td>
+        <td><b>{{membros_comungantes}}</b></td>
+      </tr>
+      <!--<tr class="cinza">
+        <td><a href="{% url 'relatorios' %}membros_comungantes/AG"><b>Membros Comungantes - AGE 06/10/2019 (PDF)</b></a></td>
+        <td><b>{{membros_comungantes}}</b></td>
+      </tr>-->
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'membros_nao_comungantes' %}"><b>Membros Não-Comungantes</b></a></td>
+        <td><b>{{membros_nao_comungantes}}</b></td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'homens'%}">Homens</a></td>
+        <td>{{homens}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'mulheres'%}">Mulheres</a></td>
+        <td>{{mulheres}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'pais'%}">Pais</a></td>
+        <td>{{pais}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'maes'%}">Mães</a></td>
+        <td>{{maes}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'bebes'%}">Bebês (0-3)</a> </td>
+        <td>{{bebes}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'criancas'%}">Crianças (4-6)</a> </td>
+        <td>{{criancas}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'upj'%}">Pré-Adolescentes (7-12)</a> </td>
+        <td>{{upj}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'adolescentes'%}">Adolescentes (13-17)</a> </td>
+        <td>{{adolescentes}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'jovens'%}">Jovens (18-29)</a> </td>
+        <td>{{jovens}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'adultos'%}">Adultos (30-59)</a></td>
+        <td>{{adultos}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'idosos'%}">Idosos (60 ou mais)</a></td>
+        <td>{{idosos}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'casados'%}">Pessoas Casadas</a></td>
+        <td>{{casados}}</td>
+      </tr>
+      <tr>
+        <td><a class="loadme" href="{% url 'rol_publico' 'relatorio_ump'%}">Relatório UMP</a></td>
+        <td>{{relatorio_ump}}</td>
+      </tr>
+
+
+  </tbody>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item ">Grupos</li>
+{% endblock %}
+
+{% block content %}
+<ul>
+	{% for grupo in grupos %}
+		{% if grupo.pk is not 12 or perms.rol.add_ata %}
+		<li><a class="loadme" href="{% url 'grupo' grupo.pk %}">{{grupo.nome}}</a></li>	
+		{% endif %}
+	{% endfor %}
+</ul>
+{% endblock %}

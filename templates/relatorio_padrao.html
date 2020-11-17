@@ -1,0 +1,45 @@
+<html><head><style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #848484;
+    text-align: left;
+    padding: 8px;
+}
+
+thead{
+    background-color: #848484;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head><body><h5>{{tipo}}<h5> 
+<table border='1'>
+  <thead>
+    <tr>
+      <th style="width:20px">#</th>
+      <th>NOME</th>
+      <th>IDADE</th>
+      <th>PRESENÇA</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i, p in pessoas %}
+      <tr>
+        <td>{{i}}</td>
+        <td>{{p.nome}}</td>
+        <td>{{p.idade}}</td>
+        <td></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+  </body>
+    </html>

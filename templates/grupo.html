@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}{% if grupo.pk is not 12 or perms.rol.add_ata %}
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupos' %}">Grupos</a></li>
+<li class="breadcrumb-item active">{{grupo.nome}}</li>
+<li class="breadcrumb-item"><a href="{% url 'relatorio_grupo' grupo.pk %}">PDF</a></li>
+{% if grupo.pk is not 9 %}
+<li class="breadcrumb-item"><a href="{% url 'new_turma' grupo.pk %}">(+)</a></li>
+{% endif %}{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if grupo.pk is not 12 or perms.rol.add_ata %}
+<ul>
+	{% for turma in turmas %}
+	{% if not turma.restrito or perms.rol.add_ata %}
+		<li><a class="loadme" href="{% url 'turma' turma.pk %}">{{turma.titulo}}</a></li>	
+	{% endif %}
+	{% endfor %}
+</ul>
+
+{% else %}
+	<h1>Grupo restrito.</h1>
+{% endif %}
+{% endblock %}

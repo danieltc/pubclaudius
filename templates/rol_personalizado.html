@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'home' %}">Informações</a></li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'relatorios' %}">Relatórios</a></li>
+<li class="breadcrumb-item active">{{titulo}}</li>
+<li class="breadcrumb-item"><a href="{% url 'relatorio_personalizado' relatorio.pk  %}/pdf">PDF</a></li>
+<li class="breadcrumb-item"><a href="{% url 'relatorio_personalizado' relatorio.pk  %}/csv">CSV</a></li>
+<li class="breadcrumb-item"><a href="{% url 'edit_relatorio' relatorio.pk  %}">editar</a></li>
+{% endblock %}
+
+
+{% block content %}
+
+<h4>{{titulo}} ({{quantidade}})</h4>
+  Filtros:
+  <small>
+  {% for fk, fv in filtros.items %}
+  <br/>{{fk}}: {{fv}}
+  {% endfor %}
+  </small>
+<div>
+    <form>
+        <input type="text" class="form-control" id="search-input" placeholder="Buscar..." autocomplete="off">
+    </form>
+</div>
+{% load getattr %}
+<table id="table-pessoas" class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>{{campo1display}}</th>      
+      {% if campo2 is not None %}<th>{{campo2display}}</th>{% endif %}
+      {% if campo3 is not None %}<th>{{campo3display}}</th>{% endif %}
+      {% if campo4 is not None %}<th>{{campo4display}}</th>{% endif %}
+    </tr>
+  </thead>
+  <tbody>
+  {% autoescape off %}
+    {% for p in pessoas %}
+      <tr>
+        <td>
+        {% if perms.rol.add_pessoa %}<a class="loadme" href="{% url 'pessoa' p.pk %}">{% endif %}
+        {{p|getattr:campo1}}
+        {% if perms.rol.add_pessoa %}</a>{% endif %}
+        </td>
+        {% if campo2 is not None %}<td>{{p|getattr:campo2}}</td>{% endif %}
+        {% if campo3 is not None %}<td>{{p|getattr:campo3}}</td>{% endif %}
+        {% if campo4 is not None %}<td>{{p|getattr:campo4}}</td>{% endif %}
+      </tr>
+    {% endfor %}
+  {% endautoescape %}
+  </tbody>
+</table>
+
+<a class="btn btn-primary loadme" href="{% url 'select_relatorio_turma' relatorio.pk  %}">Exportar para Grupo/Turma</a>
+
+{% endblock %}

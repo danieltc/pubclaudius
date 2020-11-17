@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Relatório{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'home' %}">Informações</a></li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'relatorios' %}">Relatórios</a></li>
+<li class="breadcrumb-item"><a href="{% url 'relatorio_personalizado' relatorio.pk  %}">{{relatorio.titulo}}</a></li>
+<li class="breadcrumb-item active">editar</li>
+{% endblock %}
+
+{% block content %}
+  <form autocomplete="off" method="post" enctype="multipart/form-data">
+  	<button type="submit" class="loadme btn btn-dark">Salvar</button>
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    {% if relatorio.pk not in proibido_remover %}
+    <a class="loadme btn btn-danger" href="{% url 'del_relatorio' relatorio.pk %}"><b>( ! ) REMOVER ( ! )</b></a>
+    {% endif %}
+    <br/>
+    <br/>
+    <br/>
+    <button type="submit" class="loadme btn btn-dark">Salvar</button>
+  </form>
+{% endblock %}

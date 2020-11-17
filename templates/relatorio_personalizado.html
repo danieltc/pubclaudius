@@ -1,0 +1,53 @@
+{% load getattr %}
+<html><head><style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #848484;
+    text-align: left;
+    padding: 8px;
+}
+
+thead{
+    background-color: #848484;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head><body><h5>{{titulo}}<h5> 
+<table border='1'>
+  <thead>
+    <tr>
+      <th style="width:20px">#</th>
+      <th>{{campo1display}}</th>
+      {% if campo2 is not None %}<th>{{campo2display}}</th>{% endif %}
+      {% if campo3 is not None %}<th>{{campo3display}}</th>{% endif %}
+      {% if campo4 is not None %}<th>{{campo4display}}</th>{% endif %}
+      <th>Presença</th>
+    </tr>
+  </thead>
+  {% autoescape off %}
+  <tbody>
+    {% for i, p in pessoas %}
+      <tr>
+        <td>{{i}}</td>
+        <td>{{p|getattr:campo1}}</td>
+        {% if campo2 is not None %}<td>{{p|getattr:campo2}}</td>{% endif %}
+        {% if campo3 is not None %}<td>{{p|getattr:campo3}}</td>{% endif %}
+        {% if campo4 is not None %}<td>{{p|getattr:campo4}}</td>{% endif %}
+        <td></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+  {% endautoescape %}
+
+</table>
+
+  </body>
+    </html>

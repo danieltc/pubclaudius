@@ -1,0 +1,60 @@
+<html><head><style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+thead, tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head><body>
+  <h3>TURMA: {{titulo}}<h3> 
+<br/>
+<h6>LIDERANÇA</h6>
+<table border='1'>
+  <thead>
+    <tr>
+      <th>NOME</th>
+      <th>CONTATO</th>
+      <th>PRESENÇA</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in lideranca %}
+      <tr>
+        <td>{{p.nome}}</td>
+        <td>{{p.celular}}<br/>{{p.email}}</td>
+        <td></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<h6>PARTICIPANTES</h6>
+<table border='1'>
+  <thead>
+    <tr>
+      <th>NOME</th>
+      <th>CONTATO</th>
+      <th>PRESENÇA</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in participantes %}
+      <tr>
+        <td>{{p.nome}}</td>
+        <td>{{p.celular}}<br/>{{p.email}}</td>
+        <td></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+  </body>
+    </html>

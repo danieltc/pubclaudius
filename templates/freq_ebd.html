@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'frequencia' %}">Frequências</a></li>
+<li class="breadcrumb-item active">Escola Bíblica Dominical</li>
+{% endblock %}
+
+{% block content %}
+<form autocomplete="off" method="post" enctype="multipart/form-data" >
+{% csrf_token %}
+{% include 'includes/form.html' %}
+<button type="submit" class="loadme btn btn-dark">Registrar Frequência</button>
+</form>
+<div class="dropdown-divider"></div>
+<table class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Dia</th>
+    {% for t in turmas %}
+      <th>{{t.titulo}}</th>
+    {% endfor %}      
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in domingos %}
+      <tr>
+        <td >{{ d.data }}</td>
+        {% for f in d.frequencias %}
+            <td >{{ f.quantidade }}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

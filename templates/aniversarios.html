@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'home' %}">Informações</a></li>
+<li class="breadcrumb-item">Aniversários</li>
+{% endblock %}
+
+
+{% block content %}
+<h5> <a href="#{{today.isoformat.5}}{{today.isoformat.6}}">Hoje é {{today}}</a> </h5>
+
+<ul>
+  {% for a in aniversarios.values %}
+  <li id='{{a.3}}{{a.4}}'>{{a}}</li>    
+  {% endfor %}
+</ul>
+{% endblock %}

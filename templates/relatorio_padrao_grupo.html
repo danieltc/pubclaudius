@@ -1,0 +1,59 @@
+<html><head><style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+thead, tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head><body>
+  <h3>GRUPO: {{titulo}}<h3>
+{% for turma in turmas %}
+<br/>
+<h4>TURMA: {{turma.titulo}}<h4>
+<h6>LIDERANÇA</h6>
+<table border='1'>
+  <thead>
+    <tr>
+      <th>NOME</th>
+      <th>PRESENÇA</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in turma.lista_lideranca %}
+      <tr>
+        <td>{{p.nome}}</td>
+        <td></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<h6>PARTICIPANTES</h6>
+<table border='1'>
+  <thead>
+    <tr>
+      <th>NOME</th>
+      <th>PRESENÇA</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in turma.lista_participantes %}
+      <tr>
+        <td>{{p.nome}}</td>
+        <td></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+  </body>
+    </html>

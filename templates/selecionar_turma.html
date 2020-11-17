@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'pessoas' %}">Pessoas</a></li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'pessoas_membros' %}">Membros, Pastores e Admitendos</a></li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'pessoa' pessoa.id %}">{{ pessoa.nome }}</a></li>
+<li class="breadcrumb-item active">Selecionar Turma para {% if tipo is 0 %} Liderar {% else %} Participar {% endif %}</li>
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <form>
+        <input type="text" class="form-control" id="search-input" placeholder="Buscar..." autocomplete="off">
+    </form>
+</div>
+
+<table id="table-pessoas" class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Turma</th>
+      <th>Líderes</th>
+      <th>Participantes</th>
+      <th>Grupo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in turmas %}
+    {% if t.tipo_grupo.nome is not None %}
+    {% if not t.restrito or perms.rol.add_ata %}
+      <tr>
+        <td>
+          {% if perms.rol.add_pessoa %}<a class="loadme" href="{% url 'add_pessoa_turma_tipo' pessoa.pk t.pk  tipo %}">{% endif %}
+          {{t.titulo}}
+          {% if perms.rol.add_pessoa %}</a>{% endif %}
+        </td>
+        <td>{{t.lideranca.count}}</td>
+        <td>{{t.participantes.count}}</td>
+        <td>{{t.tipo_grupo.nome}}</td>
+      </tr>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

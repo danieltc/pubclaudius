@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">Banco de Talentos</li>
+<li class="breadcrumb-item"><a class="loadme" href="{% url 'add_talentos' %}">(+)</a></li>
+{% endblock %}
+
+
+{% block content %}
+
+<div>
+    <form>
+        <input type="text" class="form-control" id="search-input" placeholder="Busca..." autocomplete="off">
+    </form>
+</div>
+
+<table id="table-pessoas" class="table table-bordered table-responsive">
+  <thead class="thead-dark">
+    <tr>
+      <th>Foto</th>
+      <th>Nome</th>
+      <th>Talentos</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in pessoas %}
+      <tr>
+        <td>{% if p.foto %}<a class="loadme" href="{{p.foto.url}}">{% endif %}<img class='foto_membro_small' class="figure-img img-fluid rounded" src="{% if p.foto %}{{p.foto.url}}{% else %}{% static 'img' %}/0.jpg{% endif %}"'>{% if p.foto %}</a>{% endif %}</td>
+        <td>
+          {% if perms.rol.add_pessoa %}<a class="loadme" href="{% url 'pessoa' p.pk %}">{% endif %}
+          {{p.nome}}
+          {% if perms.rol.add_pessoa %}</a>{% endif %}
+          <span style="font-size: 0;" > {{p.nome_ascii}} </span></td>
+        <td>{% for t in p.talentos.all %}{{t}}; {% endfor %}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

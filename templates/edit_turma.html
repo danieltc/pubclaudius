@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Editar Turma {% endblock %}
+
+{% block breadcrumb %}
+{% if not turma.restrito or perms.rol.add_ata %}
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupos' %}">Grupos</a></li>
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'grupo' turma.tipo_grupo.pk %}">{{turma.tipo_grupo.nome}}</a></li>
+<li class="breadcrumb-item "><a class="loadme" href="{% url 'turma' turma.pk %}">{{turma.titulo}}</a></li>
+<li class="breadcrumb-item active"> editar </b></li>
+{% endif%}
+
+{% endblock %}
+
+{% block content %}
+{% if not turma.restrito or perms.rol.add_ata %}
+  <form autocomplete="off" method="post"  enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'includes/form.html' %}
+    {% if turma.tipo_grupo.pk not in proibido_remover %}
+    <a class="loadme btn btn-danger" href="{% url 'del_turma' turma.pk %}"><b>( ! ) REMOVER ( ! )</b></a>
+    {% endif %}
+    <br/>
+    <br/>
+    <br/>
+    <button type="submit" class="btn btn-dark">Salvar</button>
+  </form>
+
+{% else %}
+	<h1>Grupo restrito.</h1>
+{% endif %}
+{% endblock %}
